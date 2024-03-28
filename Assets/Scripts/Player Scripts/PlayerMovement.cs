@@ -59,6 +59,8 @@ public class PlayerMovement : MonoBehaviour
         {
             verticalVelocity = jumpForce;
 
+            
+
         }
     }
 }
