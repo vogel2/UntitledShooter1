@@ -8,6 +8,7 @@ TagManager:
   - Crosshair
   - FP Camera
   - Look Root
+  - enemy
   layers:
   - Default
   - TransparentFX
@@ -16,8 +17,8 @@ TagManager:
   - Water
   - UI
   - FirstPerson
-  - 
-  - 
+  - enemy
+  - player
   - 
   - 
   - 

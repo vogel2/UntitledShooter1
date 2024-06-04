@@ -17,19 +17,19 @@ public class enemyController : MonoBehaviour
     private enemyState enState;
     public float walkSpeed = 0.5f; //enemy walk speed
     public float runSpeed = 4f; // enemy run speed
-    public float chaseDistance=7f; // how far the enemy will chase the player
+    public float chaseDistance=7f; // how far the before the enemy will chase the player
     private float currentChaseDistance;
     public float attackDistance =1.8f; // how far before the enemy starts attacking
-    public float chaseAfterAttackDistance =2f;
+    public float chaseAfterAttackDistance =2f; // how far the player can move away before the enemy runs after them
     public float patrolRadiusMin =20f, patrotRadiusMax=60f;// how far the enemy will patrol
     public float patrolDuration=15f; // patrol for this time
     public float patrolTimer; 
-    public float waitBeforeAttack=2f;
+    public float waitBeforeAttack=2f; 
     private float attackTimer;
     private Transform target;
     // Start is called before the first frame update
     
-    
+    public GameObject attackPoint;
         void Awake()
     {
         enemy_anim=GetComponent<enemyAnimaitor>();
@@ -138,6 +138,7 @@ public class enemyController : MonoBehaviour
         navAgent.isStopped=true;
         attackTimer += Time.deltaTime;
         if(attackTimer>waitBeforeAttack){
+            
             enemy_anim.Attack();
             attackTimer=0f;
         }// play attack animation
@@ -146,5 +147,14 @@ public class enemyController : MonoBehaviour
             enState=enemyState.chase;
         } //is the player running away?
 
+    }
+     void Turn_ON_AttackPoint(){
+        attackPoint.SetActive(true);
+    }
+
+    void Turn_Off_AttackPoint(){
+        if(attackPoint.activeInHierarchy){
+            attackPoint.SetActive(false);
+        }
     }
 }
