@@ -9,6 +9,9 @@ TagManager:
   - FP Camera
   - Look Root
   - enemy
+  - Key 1
+  - 'Key 2 '
+  - Key 3
   layers:
   - Default
   - TransparentFX
@@ -17,11 +20,11 @@ TagManager:
   - Water
   - UI
   - FirstPerson
-  - enemy
-  - player
-  - 
-  - 
-  - 
+  - Enemy
+  - 'Player '
+  - Key 1
+  - Key 2
+  - Key 3
   - 
   - 
   - 
