@@ -27,9 +27,12 @@ public class enemyController : MonoBehaviour
     public float waitBeforeAttack=2f; 
     private float attackTimer;
     private Transform target;
+
+    public int type;
     // Start is called before the first frame update
     
     public GameObject attackPoint;
+     public GameObject attackPoint2;
         void Awake()
     {
         enemy_anim=GetComponent<enemyAnimaitor>();
@@ -48,16 +51,16 @@ public class enemyController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(enState == enemyState.patrol){
-            patrol();
-        }
-        if(enState == enemyState.chase){
-            chase();
-
-        }
-
-        if(enState==enemyState.attack){
+        switch(enState){
+            case enemyState.patrol:
+              patrol();
+            break;
+            case enemyState.chase:
+             chase();
+            break;
+            case enemyState.attack:
             attack();
+            break;
         }
     }
     void patrol(){
@@ -157,4 +160,14 @@ public class enemyController : MonoBehaviour
             attackPoint.SetActive(false);
         }
     }
+    void Turn_ON_AttackPoint2(){
+        attackPoint2.SetActive(true);
+    }
+
+    void Turn_Off_AttackPoint2(){
+        if(attackPoint2.activeInHierarchy){
+            attackPoint2.SetActive(false);
+        }
+    }
 }
+
