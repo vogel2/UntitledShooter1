@@ -1,20 +1,24 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 
 public enum enemyState{
 patrol,
 chase,
-attack
+attack,
+dead,
+alert
 
 }
 public class enemyController : MonoBehaviour
 {   
+    private LevelManager lel;
     private enemyAnimaitor enemy_anim;
     private NavMeshAgent navAgent;
-    private enemyState enState;
+    public enemyState enState;
     public float walkSpeed = 0.5f; //enemy walk speed
     public float runSpeed = 4f; // enemy run speed
     public float chaseDistance=7f; // how far the before the enemy will chase the player
@@ -28,7 +32,7 @@ public class enemyController : MonoBehaviour
     private float attackTimer;
     private Transform target;
 
-    public int type;
+    public int entype;
     // Start is called before the first frame update
     
     public GameObject attackPoint;
@@ -38,6 +42,9 @@ public class enemyController : MonoBehaviour
         enemy_anim=GetComponent<enemyAnimaitor>();
         navAgent=GetComponent<NavMeshAgent>();
         target = GameObject.FindWithTag(Tags.PLAYER_TAG).transform;
+        GameObject copy= gameObject;
+        lel=GetComponent<LevelManager>();
+
     }
     void Start(){
         enState= enemyState.patrol;
@@ -61,13 +68,20 @@ public class enemyController : MonoBehaviour
             case enemyState.attack:
             attack();
             break;
+            case enemyState.dead:
+            dead();
+            break;
         }
     }
     void patrol(){
 
+             if(enState==enemyState.dead){
+            dead();
+        }
         navAgent.isStopped=false;//enemy is patrolling allow movement
         navAgent.speed=walkSpeed;// the movement speed is equal to the walkspeed
         patrolTimer += Time.deltaTime;// add time to the patrol timer
+        
         if(patrolTimer > patrolDuration){
             setNewDest();
             patrolTimer=0f;
@@ -85,7 +99,7 @@ public class enemyController : MonoBehaviour
             enState= enemyState.chase;
           
         }
-
+     
     }
     void setNewDest(){
         float randRadius =UnityEngine.Random.Range(patrolRadiusMin, patrotRadiusMax);
@@ -98,10 +112,13 @@ public class enemyController : MonoBehaviour
     }
 
     void chase(){
+             if(enState==enemyState.dead){
+            dead();
+        }
         navAgent.isStopped=false;
         navAgent.speed = runSpeed;
         navAgent.SetDestination(target.position);
-
+      
            if(navAgent.velocity.sqrMagnitude>0){
                 enemy_anim.Run(true);
              }
@@ -137,6 +154,9 @@ public class enemyController : MonoBehaviour
 
     }
     void attack(){
+             if(enState==enemyState.dead){
+            dead();
+        }
         navAgent.velocity= Vector3.zero;
         navAgent.isStopped=true;
         attackTimer += Time.deltaTime;
@@ -168,6 +188,19 @@ public class enemyController : MonoBehaviour
         if(attackPoint2.activeInHierarchy){
             attackPoint2.SetActive(false);
         }
+    }
+    void destroyModel(){
+        if(gameObject.activeInHierarchy){
+            Destroy(this.gameObject);
+        }
+
+    }
+    public enemyState EnemyState{
+        get;set;
+    }
+    void dead(){
+        enemy_anim.Dead(true);
+   
     }
 }
 

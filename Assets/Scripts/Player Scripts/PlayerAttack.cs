@@ -86,6 +86,7 @@ public class PlayerAttack : MonoBehaviour {
                 // Handle single shot for bullet type weapons
                 if(weapon_Manager.GetCurrentSelectedWeapon().bulletType == WeaponBulletType.BULLET) {
                     weapon_Manager.GetCurrentSelectedWeapon().ShootAnimation();
+                    BulletFired();
                 } else { // Handle aiming specific shooting
                     if(is_Aiming) {
                         weapon_Manager.GetCurrentSelectedWeapon().ShootAnimation();
@@ -123,6 +124,16 @@ public class PlayerAttack : MonoBehaviour {
                 weapon_Manager.GetCurrentSelectedWeapon().Aim(false);
                 is_Aiming = false;
             }
+        }
+    }
+     void BulletFired(){
+        RaycastHit hit;
+        if(Physics.Raycast(mainCam.transform.position,mainCam.transform.forward,out hit)){ 
+            if(hit.transform.tag==Tags.ENEMY_TAG){
+                 hit.transform.GetComponent<enemyHealth>().applyDamage(damage);
+            //print("hit " + hit.transform.gameObject.tag);
+            }
+           
         }
     }
 }

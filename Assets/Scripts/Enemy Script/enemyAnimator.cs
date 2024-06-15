@@ -23,9 +23,9 @@ public class enemyAnimaitor : MonoBehaviour
 
         anim.SetTrigger(AnimationTags.ATTACK_TRIGGER);
     }
-    public void Dead(){
+    public void Dead(bool Dead){
 
-        anim.SetTrigger(AnimationTags.DEAD_TRIGGER);
+        anim.SetBool(AnimationTags.DEAD_PARAMETER,Dead);
     }
     
 }

@@ -8,10 +8,10 @@ TagManager:
   - Crosshair
   - FP Camera
   - Look Root
-  - enemy
   - Key 1
   - Key 2
   - Key 3
+  - Enemy
   layers:
   - Default
   - TransparentFX

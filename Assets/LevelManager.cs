@@ -5,8 +5,9 @@ using UnityEngine.SceneManagement;
 
 public class LevelManager : MonoBehaviour
 {
-    public int totalEnemies;
-    public int totalKeys;
+    public static LevelManager instance;
+    public int totalEnemies=20;
+    public int totalKeys=3;
     public Text timerText;
     public Text objectivesText;
     public float levelTime = 300f; // 5 minutes in seconds
@@ -16,6 +17,15 @@ public class LevelManager : MonoBehaviour
     private float timeRemaining;
     private bool levelCompleted = false;
     private bool playerAlive = true;
+
+    void Awake(){
+            enemiesKilled = 0;
+            keysCollected = 0;
+         makeInstance();
+    }
+    void makeInstance(){
+    if(instance == null) {instance = this;}
+}
 
     void Start()
     {
@@ -28,9 +38,12 @@ public class LevelManager : MonoBehaviour
     {
         if (!levelCompleted && playerAlive)
         {
+           // print("enemiesKilled:"+enemiesKilled+ " total enemies:"+totalEnemies );
+           // print("KeysCollectet:"+keysCollected +" total keys: "+ totalKeys);
             // Check if all objectives are completed
-            if (enemiesKilled >= totalEnemies && keysCollected >= totalKeys)
+            if ((enemiesKilled >= totalEnemies) && (keysCollected >= totalKeys))
             {
+               // print("false positive happened");
                 CompleteLevel();
             }
         }
@@ -39,13 +52,15 @@ public class LevelManager : MonoBehaviour
     public void EnemyKilled()
     {
         enemiesKilled++;
-        UpdateObjectivesText();
+        //UpdateObjectivesText();
+        
     }
 
     public void KeyCollected()
     {
         keysCollected++;
         UpdateObjectivesText();
+        
     }
 
     public void PlayerDied()
@@ -57,6 +72,7 @@ public class LevelManager : MonoBehaviour
     private void CompleteLevel()
     {
         levelCompleted = true;
+        
         EndLevel(true);
     }
 
@@ -73,8 +89,13 @@ public class LevelManager : MonoBehaviour
         {
             // Show failure message and reset level or go to main menu
             Debug.Log("Level Failed!");
+            print("dead!");
+            Invoke("RestartGame",3f);
             // Implement your failure logic here
         }
+    }
+    void RestartGame(){
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Level1");
     }
 
     private IEnumerator Timer()

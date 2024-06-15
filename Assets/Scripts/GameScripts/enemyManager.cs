@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics.Tracing;
 using System.Security.Cryptography;
+using Unity.VisualScripting;
 using UnityEngine;
 //read explaination down
 public class enemyManager : MonoBehaviour
@@ -13,41 +15,27 @@ public class enemyManager : MonoBehaviour
     public Transform[] key1Locations, key2Locations,key3Locations;
     public Transform armouredEnemy1Loc,armouredEnemy2Loc,armouredEnemy3Loc;
     [SerializeField]
-    private int lesserEnemy1,lesserEnemy2,lesserEnemy3,ArmouredEnemy1INIT,ArmouredEnemy2INIT,ArmouredEnemy3INIT;
+    private int enInt1,enInt2,enInt3,enInt4,enInt5,enInt6;
     private int enemy1Num,enemy2Num,enemy3Num,enemy4Num,enemy5Num,enemy6Num;
-    public float waitTime=10f;
+    public float waitTime=20f;
+   // public 
 
    void Awake(){
     makeInstance();
 
    }
     void Start(){
-       enemy1Num=lesserEnemy1;
-        enemy2Num=lesserEnemy2;
-        enemy3Num=lesserEnemy3;
-        enemy4Num=ArmouredEnemy1INIT;
-        enemy5Num=ArmouredEnemy2INIT;
-        enemy6Num=ArmouredEnemy3INIT;
+       enemy1Num=enInt1;
+        enemy2Num=enInt2;
+        enemy3Num=enInt3;
+        enemy4Num=enInt4;
+        enemy5Num=enInt5;
+        enemy6Num=enInt6;
         spawnEnemiesInt() ;
         StartCoroutine("checkRespawnTimer");
 
     }
- 
-    IEnumerator checkRespawnTimer(){ //this makes a timer for the enemy respawn
-        yield return new WaitForSeconds(waitTime);
-        spawnEn1();
-        spawnEn2();
-        spawnEn3();
-        spawnEn4();
-        spawnEn5();
-        spawnEn6();
-
-        StartCoroutine("checkRespawnTimer");
-    }
-void makeInstance(){
-    if(instance == null) {instance = this;}
-}
-void  spawnEnemiesInt(){
+ void  spawnEnemiesInt(){
     spawnEn1();
     spawnEn2();
     spawnEn3();
@@ -55,31 +43,72 @@ void  spawnEnemiesInt(){
     spawnEn5();
     spawnEn6();
 }
+    IEnumerator checkRespawnTimer(){ //this makes a timer for the enemy respawn
+        yield return new WaitForSeconds(waitTime);
+        spawnEnemiesInt();
+        StartCoroutine("checkRespawnTimer");
+    }
+void makeInstance(){
+    if(instance == null) {instance = this;}
+}
 
 
-void spawnEnemies(GameObject enemyPrefab, Transform[] enemyLocations, ref int enemyNum,int enType) {
-    int index = 0;
-    for (int i = 0; i < enemyNum; i++) {
-        if (index >= enemyLocations.Length) {
-            index = 0;
+
+void spawnEnemies(GameObject enemyPrefab, Transform[] enemyLocations, ref int enemyNum, int enType)
+    {
+        int index = 0;
+        for (int i = 0; i < enemyNum; i++)
+        {
+            if (index >= enemyLocations.Length)
+            {
+                index = 0;
+            }
+            GameObject copy = Instantiate(enemyPrefab, enemyLocations[index].position, Quaternion.identity);
+            enemyController scriptCopy = copy.GetComponent<enemyController>();
+            scriptCopy.entype = enType;
+            index++;
         }
-        GameObject copy = Instantiate(enemyPrefab, enemyLocations[index].position, Quaternion.identity);
-        enemyController scriptCopy = copy.GetComponent<enemyController>();
-        scriptCopy.type=enType;
-        index++;
+        enemyNum = 0; // Reset enemy count after spawning
     }
-    enemyNum = 0;
-}
-void spawnEnemy(GameObject enemyPrefab, Transform enemyLocations, ref int enemyNum, int enType) { 
-    if(enemyNum!=0) {
-        GameObject copy = Instantiate(enemyPrefab, enemyLocations.position, Quaternion.identity);
-        enemyController scriptCopy = copy.GetComponent<enemyController>();
-        scriptCopy.type=enType;
+
+    void spawnEnemy(GameObject enemyPrefab, Transform enemyLocation, ref int enemyNum, int enType)
+    {
+        if (enemyNum != 0)
+        {
+            GameObject copy = Instantiate(enemyPrefab, enemyLocation.position, Quaternion.identity);
+            enemyController scriptCopy = copy.GetComponent<enemyController>();
+            scriptCopy.entype = enType;
+            enemyNum = 0; // Reset enemy count after spawning
+        }
     }
-    enemyNum = 0;
-}
 void spawnEn1(){
-    spawnEnemies( enemy1_prefab, key1Locations, ref enemy1Num,1);
+    int counter=0;
+     GameObject[] objects= GameObject.FindGameObjectsWithTag("Enemy");
+     
+     foreach(GameObject obj in objects){
+        if(obj.GetComponent<enemyController>().entype==1){
+            counter++;
+        }
+     }
+     int num =counter + enemy1Num;
+     //print("counter is " + counter +" num1 before is "+ enemy1Num+ " total = "+ num );
+     if(counter+enemy1Num<=4){int index = 0;
+        {for (int i = 0; i < enemy1Num; i++)
+        {
+            if (index >= key1Locations.Length)
+            {
+                index = 0;
+            }
+            GameObject copy = Instantiate(enemy1_prefab, key1Locations[index].position, Quaternion.identity);
+            enemyController scriptCopy = copy.GetComponent<enemyController>();
+            scriptCopy.entype = 1;
+            index++;
+        }enemy1Num = 0; }
+        // Reset enemy count after spawning}
+  //  spawnEnemies( enemy1_prefab, key1Locations, ref enemy1Num,1);
+     //print("num1 after is "+enemy1Num);
+    counter=0;
+     }
 }
 void spawnEn2(){
 
@@ -96,52 +125,59 @@ void spawnEn4(){
 void spawnEn5(){
 
    spawnEnemy(enemy2_prefab, armouredEnemy2Loc, ref enemy5Num,5);
+   
 }
 void spawnEn6(){
 
     spawnEnemy(enemy2_prefab, armouredEnemy3Loc, ref enemy6Num, 6);
 }
 
-    public void enemyDied(bool isDead, int enemyType) {
-    if (isDead) {
+    public void enemyDied(int enemyType) {
+     // print("made it to manager");
         switch (enemyType) {
             case 1:
                 enemy1Num++;
-                if (enemy1Num > lesserEnemy1) {
-                    enemy1Num = lesserEnemy1;
+                   
+                if (enemy1Num > enInt1) {
+                    enemy1Num = enInt1;
                 }
                 break;
             case 2:
                 enemy2Num++;
-                if (enemy2Num > lesserEnemy2) {
-                    enemy2Num = lesserEnemy2;
+                if (enemy2Num > enInt2) {
+                    enemy2Num = enInt2;
                 }
                 break;
             case 3:
                 enemy3Num++;
-                if (enemy3Num > lesserEnemy3) {
-                    enemy3Num = lesserEnemy3;
+
+                if (enemy3Num > enInt3) {
+                    enemy3Num = enInt3;
                 }
                 break;
             case 4:
                 enemy4Num++;
-                if (enemy4Num > ArmouredEnemy1INIT) {
-                    enemy4Num = ArmouredEnemy1INIT;
+
+                if (enemy4Num > enInt4) {
+                    enemy4Num = enInt4;
                 }
                 break;
             case 5:
                 enemy5Num++;
-                if (enemy5Num > ArmouredEnemy2INIT) {
-                    enemy5Num = ArmouredEnemy2INIT;
+                if (enemy5Num > enInt5) {
+                    enemy5Num = enInt5;
                 }
                 break;
             case 6:
                 enemy6Num++;
-                if (enemy6Num > ArmouredEnemy3INIT) {
-                    enemy6Num = ArmouredEnemy3INIT;
+                if (enemy6Num > enInt6) {
+                    enemy6Num = enInt6;
                 }
                 break;
-        }
+                default:
+               // print("unexpected error");
+                break;
+        
     }
 }
     public void stopRespawn(){

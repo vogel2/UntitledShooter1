@@ -1557,9 +1557,10 @@ GameObject:
   - component: {fileID: 2716968275653576894}
   - component: {fileID: 3985062808664424060}
   - component: {fileID: 4595891958644101020}
+  - component: {fileID: 2380916669010432630}
   m_Layer: 7
   m_Name: WorkingSkele
-  m_TagString: enemy
+  m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1650,6 +1651,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2845a76579e396241881a525bfe5a949, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enState: 0
   walkSpeed: 2
   runSpeed: 4
   chaseDistance: 7
@@ -1660,7 +1662,7 @@ MonoBehaviour:
   patrolDuration: 15
   patrolTimer: 0
   waitBeforeAttack: 2
-  type: 0
+  entype: 0
   attackPoint: {fileID: 1378528900168566426}
   attackPoint2: {fileID: 2174221509834558817}
 --- !u!65 &3985062808664424060
@@ -1682,8 +1684,8 @@ BoxCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.7, y: 1.8, z: 0.7}
+  m_Center: {x: 0, y: 1, z: 0}
 --- !u!54 &4595891958644101020
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1711,6 +1713,20 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &2380916669010432630
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4999177309114702401}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 54aaaf2f38b88884d9911e61d554dcdb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 50
+  enType: 1
 --- !u!1 &5222687090233498155
 GameObject:
   m_ObjectHideFlags: 0
