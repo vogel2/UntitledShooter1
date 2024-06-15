@@ -1557,9 +1557,9 @@ GameObject:
   - component: {fileID: 2716968275653576894}
   - component: {fileID: 3985062808664424060}
   - component: {fileID: 4595891958644101020}
-  m_Layer: 0
-  m_Name: SkeletonOutlaw_NoArmor - LOD0
-  m_TagString: Untagged
+  m_Layer: 7
+  m_Name: WorkingSkele
+  m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1661,8 +1661,8 @@ MonoBehaviour:
   patrolTimer: 0
   waitBeforeAttack: 2
   type: 0
-  attackPoint: {fileID: 0}
-  attackPoint2: {fileID: 0}
+  attackPoint: {fileID: 1378528900168566426}
+  attackPoint2: {fileID: 2174221509834558817}
 --- !u!65 &3985062808664424060
 BoxCollider:
   m_ObjectHideFlags: 0

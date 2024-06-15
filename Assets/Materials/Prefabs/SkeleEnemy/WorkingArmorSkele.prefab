@@ -444,7 +444,7 @@ GameObject:
   - component: {fileID: 3325980084423793859}
   - component: {fileID: 270029908047058532}
   m_Layer: 7
-  m_Name: SkeletonOutlaw_Armor - LOD0
+  m_Name: WorkingArmorSkele
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -545,8 +545,8 @@ MonoBehaviour:
   chaseDistance: 15
   attackDistance: 1.5
   chaseAfterAttackDistance: 0.5
-  patrolRadiusMin: 20
-  patrotRadiusMax: 40
+  patrolRadiusMin: 5
+  patrotRadiusMax: 15
   patrolDuration: 15
   patrolTimer: 0
   waitBeforeAttack: 2
