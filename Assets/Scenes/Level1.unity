@@ -95240,6 +95240,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: SkeletonOutlaw_NoArmor - LOD0
       objectReference: {fileID: 0}
+    - target: {fileID: 4999177309114702401, guid: 1e726ec6218285144aebee289ba05e13, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
