@@ -38,7 +38,7 @@ public class LevelManager : MonoBehaviour
     {
         if (!levelCompleted && playerAlive)
         {
-           // print("enemiesKilled:"+enemiesKilled+ " total enemies:"+totalEnemies );
+            print("enemiesKilled:"+enemiesKilled+ " total enemies:"+totalEnemies );
            // print("KeysCollectet:"+keysCollected +" total keys: "+ totalKeys);
             // Check if all objectives are completed
             if ((enemiesKilled >= totalEnemies) && (keysCollected >= totalKeys))

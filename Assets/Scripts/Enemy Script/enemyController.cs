@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Numerics;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
@@ -19,18 +20,19 @@ public class enemyController : MonoBehaviour
     private enemyAnimaitor enemy_anim;
     private NavMeshAgent navAgent;
     public enemyState enState;
-    public float walkSpeed = 0.5f; //enemy walk speed
-    public float runSpeed = 4f; // enemy run speed
-    public float chaseDistance=7f; // how far the before the enemy will chase the player
+    public float walkSpeed = 2f; //enemy walk speed
+    public float runSpeed = 7f; // enemy run speed
+    public float chaseDistance=20f; // how far the before the enemy will chase the player
     private float currentChaseDistance;
     public float attackDistance =1.8f; // how far before the enemy starts attacking
-    public float chaseAfterAttackDistance =2f; // how far the player can move away before the enemy runs after them
-    public float patrolRadiusMin =20f, patrotRadiusMax=60f;// how far the enemy will patrol
-    public float patrolDuration=15f; // patrol for this time
+    public float chaseAfterAttackDistance =1f; // how far the player can move away before the enemy runs after them
+    public float patrolRadiusMin =10f, patrotRadiusMax=20f;// how far the enemy will patrol
+    public float patrolDuration=5f; // patrol for this time
     public float patrolTimer; 
     public float waitBeforeAttack=2f; 
     private float attackTimer;
     private Transform target;
+
 
     public int entype;
     // Start is called before the first frame update
@@ -71,6 +73,7 @@ public class enemyController : MonoBehaviour
             case enemyState.dead:
             dead();
             break;
+      
         }
     }
     void patrol(){
@@ -94,7 +97,7 @@ public class enemyController : MonoBehaviour
             enemy_anim.Walk(false);
         }
 
-        if(Vector3.Distance(transform.position,target.position) <= chaseDistance){
+        if(UnityEngine.Vector3.Distance(transform.position,target.position) <= chaseDistance){
             enemy_anim.Walk(false);
             enState= enemyState.chase;
           
@@ -103,7 +106,7 @@ public class enemyController : MonoBehaviour
     }
     void setNewDest(){
         float randRadius =UnityEngine.Random.Range(patrolRadiusMin, patrotRadiusMax);
-        Vector3 randDir= UnityEngine.Random.insideUnitSphere*randRadius;
+        UnityEngine.Vector3 randDir= UnityEngine.Random.insideUnitSphere*randRadius;
         randDir +=transform.position;
         NavMeshHit navHit;
         NavMesh.SamplePosition(randDir,out navHit, randRadius,-1);//make sure the random location is navegationable 
@@ -112,12 +115,15 @@ public class enemyController : MonoBehaviour
     }
 
     void chase(){
+        
              if(enState==enemyState.dead){
             dead();
         }
+
         navAgent.isStopped=false;
         navAgent.speed = runSpeed;
         navAgent.SetDestination(target.position);
+       
       
            if(navAgent.velocity.sqrMagnitude>0){
                 enemy_anim.Run(true);
@@ -126,7 +132,7 @@ public class enemyController : MonoBehaviour
             enemy_anim.Run(false);
         }
 
-        if(Vector3.Distance(transform.position,target.position) <= attackDistance){
+        if(UnityEngine.Vector3.Distance(transform.position,target.position) <= attackDistance){
 
          enemy_anim.Run(false);
          enemy_anim.Walk(false);
@@ -139,7 +145,7 @@ public class enemyController : MonoBehaviour
        
 
         }
-         else if(Vector3.Distance(transform.position,target.position)>chaseDistance){
+         else if(UnityEngine.Vector3.Distance(transform.position,target.position)>chaseDistance){
 
             enemy_anim.Run(false);
         
@@ -150,14 +156,15 @@ public class enemyController : MonoBehaviour
             
             }
          }
-        
+      // enState=enemyState.alert;
 
     }
     void attack(){
              if(enState==enemyState.dead){
             dead();
         }
-        navAgent.velocity= Vector3.zero;
+       
+        navAgent.velocity= UnityEngine.Vector3.zero;
         navAgent.isStopped=true;
         attackTimer += Time.deltaTime;
         if(attackTimer>waitBeforeAttack){
@@ -166,10 +173,10 @@ public class enemyController : MonoBehaviour
             attackTimer=0f;
         }// play attack animation
 
-        if(Vector3.Distance(transform.position, target.position) > attackDistance +chaseAfterAttackDistance ){
+        if(UnityEngine.Vector3.Distance(transform.position, target.position) > attackDistance +chaseAfterAttackDistance ){
             enState=enemyState.chase;
         } //is the player running away?
-
+         //enState=enemyState.alert;
     }
      void Turn_ON_AttackPoint(){
         attackPoint.SetActive(true);
@@ -202,5 +209,33 @@ public class enemyController : MonoBehaviour
         enemy_anim.Dead(true);
    
     }
-}
+    public void alert(int i){
+         enState=enemyState.chase;
+          navAgent.speed = runSpeed;
+            GameObject[] objects= GameObject.FindGameObjectsWithTag("Enemy");
+            
+     
+     foreach(GameObject obj in objects){
+            if(obj.GetComponent<enemyController>().entype==i)
+          {
+            obj.GetComponent<NavMeshAgent>().isStopped=false;
+             obj.GetComponent<NavMeshAgent>().SetDestination(target.position); 
+            obj.GetComponent<NavMeshAgent>().speed=runSpeed;
+            obj.GetComponent<enemyController>().chaseDistance=50f;
+            obj.GetComponent<enemyAnimaitor>().Run(true);
+            if(UnityEngine.Vector3.Distance(obj.transform.position, target.position) <= attackDistance){
+                obj.GetComponent<enemyController>().enState=enemyState.attack;
+            }
+            else if(UnityEngine.Vector3.Distance(obj.transform.position, target.position) <= chaseDistance){
+                  obj.GetComponent<enemyController>().enState=enemyState.chase;
+            }
+
+            
+             }
+            }
+        }
+        }
+        
+    
+
 

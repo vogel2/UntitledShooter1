@@ -16,9 +16,10 @@ public class enemyHealth : MonoBehaviour
     private enemyManager enManager;
     private LevelManager lel;
     public float health=20f;
-    private bool isDead;
+    private bool isDead=false;
     public enemyType enType;
     private Transform target;
+    private bool alerted=false;
 
     // Start is called before the first frame update
     void Awake()
@@ -33,20 +34,26 @@ public class enemyHealth : MonoBehaviour
     }
     public void applyDamage(float damage){
         health-=damage;
-        if(health<=0f){
+        if(health<=0f&& isDead==false){
         isDead=true;
        int num=this.gameObject.GetComponent<enemyController>().entype;
       // print("type is "+num);
        enemController.enState=enemyState.dead;
       enemyManager.instance.enemyDied(num);
+      
        LevelManager.instance.EnemyKilled();
          
             return;}
         //print(health);
-        if(enemController.EnemyState == enemyState.patrol){
-            navAgent.SetDestination(target.position);
-            
-
+       
+        if(enemController.entype==4){
+            enemController.alert(1);
+        }
+        else if(enemController.entype==5){
+             enemController.alert(2);
+        }
+        else if(enemController.entype==6){
+            enemController.alert(3);
         }
 
     }
