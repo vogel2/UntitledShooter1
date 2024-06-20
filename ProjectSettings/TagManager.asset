@@ -12,6 +12,7 @@ TagManager:
   - Key 2
   - Key 3
   - Enemy
+  - Upgrade Point
   layers:
   - Default
   - TransparentFX

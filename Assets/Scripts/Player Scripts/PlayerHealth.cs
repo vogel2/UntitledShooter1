@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -15,6 +16,7 @@ public class PlayerHealth : MonoBehaviour
     private NavMeshAgent navAgent;
     private enemyController enemController;
     // Start is called before the first frame update
+    public Slider HealthBar;
     void Awake()
     {
          enemyAnim=GetComponent<enemyAnimaitor>();
@@ -24,11 +26,13 @@ public class PlayerHealth : MonoBehaviour
 
     public void applyDamage(float damage){
         currHealth-=damage;
+        HealthBar.value=currHealth;
         CancelInvoke("Regen");
         print(currHealth);
+    
         if(currHealth<=0f){
         
-            GameObject[] enemies=  GameObject.FindGameObjectsWithTag("enemy");
+            GameObject[] enemies=  GameObject.FindGameObjectsWithTag("Enemy");
 
             foreach(GameObject obj in enemies){
                 obj.GetComponent<enemyController>().enabled=false;

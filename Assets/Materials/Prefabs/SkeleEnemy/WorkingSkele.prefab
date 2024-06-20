@@ -1657,8 +1657,8 @@ MonoBehaviour:
   chaseDistance: 7
   attackDistance: 1.8
   chaseAfterAttackDistance: 2
-  patrolRadiusMin: 20
-  patrotRadiusMax: 60
+  patrolRadiusMin: 5
+  patrotRadiusMax: 15
   patrolDuration: 15
   patrolTimer: 0
   waitBeforeAttack: 2

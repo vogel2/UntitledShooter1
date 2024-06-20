@@ -15,7 +15,8 @@ public class MouseAxis
 }
 
 public class AnimationTags {
-
+    
+    
     public const string ZOOM_IN_ANIM = "ZoomIn";
     public const string ZOOM_OUT_ANIM = "ZoomOut";
 
