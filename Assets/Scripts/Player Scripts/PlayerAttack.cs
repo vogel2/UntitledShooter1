@@ -130,11 +130,15 @@ public class PlayerAttack : MonoBehaviour {
             }
         }
     }
-     void BulletFired(){
+   void BulletFired(){
         RaycastHit hit;
         if(Physics.Raycast(mainCam.transform.position,mainCam.transform.forward,out hit)){ 
             if(hit.transform.tag==Tags.ENEMY_TAG){
                  hit.transform.GetComponent<enemyHealth>().applyDamage(damage);
+            //print("hit " + hit.transform.gameObject.tag);
+            }
+            else if(hit.transform.tag==Tags.BOSS_TAG){
+                 hit.transform.GetComponent<BossHealth>().applyDamage(damage);
             //print("hit " + hit.transform.gameObject.tag);
             }
            

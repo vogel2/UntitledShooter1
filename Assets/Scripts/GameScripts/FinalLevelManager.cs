@@ -27,7 +27,7 @@ public class FinalLevelManager : MonoBehaviour
     {
            BossDead=false;
         timeRemaining = levelTime;
-        UpdateObjectivesText();
+        //UpdateObjectivesText();
         StartCoroutine(Timer());
     }
 
