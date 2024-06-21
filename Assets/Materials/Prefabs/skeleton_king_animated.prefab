@@ -849,8 +849,8 @@ GameObject:
   - component: {fileID: 8333359710675925733}
   - component: {fileID: 2697417273432334654}
   - component: {fileID: 4205815047509344252}
-  - component: {fileID: 5030425041497442170}
   - component: {fileID: 706901871992488923}
+  - component: {fileID: 986274164953261685}
   m_Layer: 7
   m_Name: skeleton_king_animated
   m_TagString: Boss
@@ -979,19 +979,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a9d4a06440e3a7749908a5de2a2167d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &5030425041497442170
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2324005908583652771}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 47abc08739fc24740b8badf2f469da14, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  health: 20
 --- !u!114 &706901871992488923
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1011,10 +998,25 @@ MonoBehaviour:
   attackDistance: 1.8
   chaseAfterAttackDistance: 2
   waitBeforeAttack: 5
-  SpecialCooldown: 3
+  SpecialCooldown: 15
+  isdead: 0
   Ring: {fileID: 0}
-  ringRadius: 15
+  followupRanger: 15
   attackPoint: {fileID: 0}
+  attackPoint2: {fileID: 0}
+--- !u!114 &986274164953261685
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2324005908583652771}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 47abc08739fc24740b8badf2f469da14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  health: 600
 --- !u!1 &2859489695836636438
 GameObject:
   m_ObjectHideFlags: 0

@@ -36,10 +36,12 @@ public class BossScripts : MonoBehaviour{
     public float SpecialCooldown= 3f;
 public bool isdead=false;
     public GameObject Ring;
-    public float ringRadius=15f; 
+    public float followupRanger=15f; 
     public GameObject attackPoint;
+     public GameObject attackPoint2;
     private float expectedEndSpecial;
     private bool inAttack=false;
+
         void Awake()
     {
         bossAnim=GetComponent<bossAnimator>();
@@ -84,9 +86,10 @@ public bool isdead=false;
             dead();
         }
         */
+        attackTimer += Time.deltaTime;
         navAgent.speed = runSpeed;
         navAgent.isStopped=false;
-        navAgent.acceleration= 4f;
+        navAgent.acceleration=8f;
         navAgent.SetDestination(target.position);
        
       
@@ -144,18 +147,19 @@ public bool isdead=false;
     void SpecialAttacks(){
 
             if(!isdead){
-               
+               attackTimer += Time.deltaTime;
                 if(inAttack==false){
                     navAgent.velocity= UnityEngine.Vector3.zero;
                     navAgent.isStopped=true;
                     navAgent.acceleration= 0f;
                     bossAnim.SpecialAttack();
-                    if(UnityEngine.Vector3.Distance(transform.position,target.transform.position) <= ringRadius){
+                    Instantiate(Ring,this.transform.position,UnityEngine.Quaternion.identity);
+                    if(UnityEngine.Vector3.Distance(transform.position,target.transform.position) <= followupRanger){
                         bossAnim.inrange(true);
                     }
                     inAttack=true;
 
-                    expectedEndSpecial=Time.time+3f;
+                    expectedEndSpecial=Time.time+3.5f;
                     }
 
                     if(Time.time>expectedEndSpecial){
@@ -176,6 +180,15 @@ public bool isdead=false;
     void Turn_Off_AttackPoint(){
         if(attackPoint.activeInHierarchy){
             attackPoint.SetActive(false);
+        }
+    }
+      void Turn_ON_AttackPoint2(){
+        attackPoint2.SetActive(true);
+    }
+
+    void Turn_Off_AttackPoint2(){
+        if(attackPoint2.activeInHierarchy){
+            attackPoint2.SetActive(false);
         }
     }
     void destroyModel(){

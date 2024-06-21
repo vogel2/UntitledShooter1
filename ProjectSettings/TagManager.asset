@@ -13,6 +13,7 @@ TagManager:
   - Key 3
   - Enemy
   - Boss
+  - Fire
   layers:
   - Default
   - TransparentFX
@@ -26,7 +27,7 @@ TagManager:
   - Key 1
   - Key 2
   - Key 3
-  - 
+  - FireLayer
   - 
   - 
   - 
