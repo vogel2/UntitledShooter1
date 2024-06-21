@@ -167,8 +167,7 @@ public class enemyController : MonoBehaviour
         navAgent.velocity= UnityEngine.Vector3.zero;
         navAgent.isStopped=true;
         attackTimer += Time.deltaTime;
-        if(attackTimer>waitBeforeAttack){
-            
+        if(attackTimer>waitBeforeAttack){    
             enemy_anim.Attack();
             attackTimer=0f;
         }// play attack animation

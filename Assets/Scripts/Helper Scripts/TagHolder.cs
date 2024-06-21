@@ -24,8 +24,12 @@ public class AnimationTags {
 
     public const string WALK_PARAMETER = "Walk";
     public const string RUN_PARAMETER = "Run";
-    public const string ATTACK_TRIGGER = "Attack";
+    public const string ATTACK_TRIGGER="Attack";
+    public const string BOSSATTACK_PARAMETER = "BossAttack";
     public const string DEAD_PARAMETER = "Dead";
+    public const string SPECIALATTACK_TRIGGER = "SpecialAttack";
+     public const string INRANGE_PARAMETER = "InRange";
+     public const string JUMP_PARAMETER = "Jump";
 
 }
 public class Tags {
@@ -39,6 +43,7 @@ public class Tags {
 
     public const string PLAYER_TAG = "Player";
     public const string ENEMY_TAG = "Enemy";
+    public const string BOSS_TAG= "Boss";
     
 
 }
