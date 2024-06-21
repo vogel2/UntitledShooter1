@@ -8,17 +8,13 @@ using UnityEngine;
 
 public enum WeaponAim{
     NONE,
-    SELF_AIM,
     AIM
 }
 public enum WeaponFireType{
-    SINGLE,
-    MULTIPLE
+    SINGLE
 }
 public enum WeaponBulletType{
     BULLET,
-    ARROW,
-    SPEAR,
     NONE
 }
 

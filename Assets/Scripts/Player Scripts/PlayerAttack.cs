@@ -69,17 +69,7 @@ public class PlayerAttack : MonoBehaviour {
     void WeaponShoot() {
 
         // Check if the current weapon belongs to multiple shots fire type
-        if(weapon_Manager.GetCurrentSelectedWeapon().fireType == WeaponFireType.MULTIPLE) {
-
-            // If the left mouse button is held down and the current time is greater than the next time to fire
-            if(Input.GetMouseButton(0) && Time.time > nextTimeToFire) {
-                // Calculate the next time to fire based on the fire rate
-                nextTimeToFire = Time.time + 1f / fireRate;
-
-                // Play the shoot animation for the current weapon
-                weapon_Manager.GetCurrentSelectedWeapon().ShootAnimation();
-            }
-        } else { // Single shot fire type
+          // Single shot fire type
             // If the left mouse button is clicked once
             if(Input.GetMouseButtonDown(0)) {
                 // Handle single shot for melee weapon like an axe
@@ -96,7 +86,6 @@ public class PlayerAttack : MonoBehaviour {
                         weapon_Manager.GetCurrentSelectedWeapon().ShootAnimation();
                     }
                 }
-            }
         }
     }
 
@@ -115,20 +104,7 @@ public class PlayerAttack : MonoBehaviour {
                 crosshair.SetActive(true);
             }
         }
-
-        // Check if the weapon uses self-aiming
-        if(weapon_Manager.GetCurrentSelectedWeapon().weapon_Aim == WeaponAim.SELF_AIM) {
-            // If the right mouse button is pressed down, start zooming in and set aiming to true
-            if(Input.GetMouseButtonDown(1)) {
-                weapon_Manager.GetCurrentSelectedWeapon().Aim(true);
-                is_Aiming = true;
-            }
-            // If the right mouse button is released, start zooming out and set aiming to false
-            if(Input.GetMouseButtonUp(1)) {
-                weapon_Manager.GetCurrentSelectedWeapon().Aim(false);
-                is_Aiming = false;
-            }
-        }
+        
     }
    void BulletFired(){
         RaycastHit hit;

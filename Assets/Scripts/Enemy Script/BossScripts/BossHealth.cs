@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
+using UnityEngine.UI;
 
 public class BossHealth : MonoBehaviour
 {
@@ -14,6 +15,7 @@ public class BossHealth : MonoBehaviour
     public float health=20f;
     private bool isDead=false;
     private Transform target;
+     public Slider HealthBar;
  
 
     // Start is called before the first frame update
@@ -27,6 +29,7 @@ public class BossHealth : MonoBehaviour
        
      if(isDead==false){
         health-=damage;
+        HealthBar.value=health;
         if(health<=0f){
             isDead=true;
             print("boss died");

@@ -29,18 +29,6 @@ public class WeaponManager : MonoBehaviour
         if(Input.GetKeyDown(KeyCode.Alpha2)){
             TurnOnSelectedWeapon(1);
         }
-        if(Input.GetKeyDown(KeyCode.Alpha3)){
-            TurnOnSelectedWeapon(2);
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha4)){
-            TurnOnSelectedWeapon(3);
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha5)){
-            TurnOnSelectedWeapon(4);
-        }
-        if(Input.GetKeyDown(KeyCode.Alpha6)){
-            TurnOnSelectedWeapon(5);
-        }
     }
 
     

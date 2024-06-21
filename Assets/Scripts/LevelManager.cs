@@ -3,14 +3,13 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+        
+
 public class LevelManager : MonoBehaviour
 {
     public static LevelManager instance;
     public int totalEnemies=20;
     public int totalKeys=3;
-    public Text timerText;
-    public Text objectivesText;
-    public float levelTime = 300f; // 5 minutes in seconds
 
     private int enemiesKilled = 0;
     private int keysCollected = 0;
@@ -29,9 +28,6 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
-        timeRemaining = levelTime;
-        UpdateObjectivesText();
-        StartCoroutine(Timer());
     }
 
     void Update()
@@ -52,14 +48,13 @@ public class LevelManager : MonoBehaviour
     public void EnemyKilled()
     {
         enemiesKilled++;
-        //UpdateObjectivesText();
         
     }
 
     public void KeyCollected()
     {
         keysCollected++;
-        UpdateObjectivesText();
+    
         
     }
 
@@ -98,29 +93,4 @@ public class LevelManager : MonoBehaviour
         UnityEngine.SceneManagement.SceneManager.LoadScene("Level1");
     }
 
-    private IEnumerator Timer()
-    {
-        while (timeRemaining > 0)
-        {
-            timeRemaining -= Time.deltaTime;
-            UpdateTimerText();
-            yield return null;
-        }
-        if (!levelCompleted)
-        {
-            EndLevel(false); // Fail the level if time runs out
-        }
-    }
-
-    private void UpdateTimerText()
-    {
-        int minutes = Mathf.FloorToInt(timeRemaining / 60);
-        int seconds = Mathf.FloorToInt(timeRemaining % 60);
-        timerText.text = string.Format("{0:00}:{1:00}", minutes, seconds);
-    }
-
-    private void UpdateObjectivesText()
-    {
-        objectivesText.text = $"Enemies Killed: {enemiesKilled}/{totalEnemies}\nKeys Collected: {keysCollected}/{totalKeys}";
-    }
 }
