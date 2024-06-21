@@ -12,7 +12,7 @@ public class PlayerAttack : MonoBehaviour {
     // Time until the next fire is allowed
     private float nextTimeToFire;
     // Damage inflicted by the weapon
-    public float damage = 40f;
+    public float damage = 20f;
 
     // Reference to the Animator for the zoom camera
     private Animator zoomCameraAnim;
@@ -57,6 +57,10 @@ public class PlayerAttack : MonoBehaviour {
 
     // Update is called once per frame
     void Update() {
+         if (PauseMenu.GameIsPaused)
+         {
+            return;
+         }
         WeaponShoot();
         ZoomInAndOut();
     }
@@ -131,10 +135,6 @@ public class PlayerAttack : MonoBehaviour {
         if(Physics.Raycast(mainCam.transform.position,mainCam.transform.forward,out hit)){ 
             if(hit.transform.tag==Tags.ENEMY_TAG){
                  hit.transform.GetComponent<enemyHealth>().applyDamage(damage);
-            //print("hit " + hit.transform.gameObject.tag);
-            }
-            else if(hit.transform.tag==Tags.BOSS_TAG){
-                 hit.transform.GetComponent<BossHealth>().applyDamage(damage);
             //print("hit " + hit.transform.gameObject.tag);
             }
            

@@ -44,6 +44,12 @@ public class MouseLook : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (PauseMenu.GameIsPaused)
+        {
+            Cursor.lockState=CursorLockMode.None;
+            Cursor.visible=true;
+            return;
+        }
         LockAndUnlockCursor();
 
         if(Cursor.lockState == CursorLockMode.Locked)
@@ -59,11 +65,14 @@ public class MouseLook : MonoBehaviour
             if(Cursor.lockState == CursorLockMode.Locked)
             {
                 Cursor.lockState = CursorLockMode.None;
+                Cursor.visible=true;
+                PauseMenu.GameIsPaused=true;
             }
             else
             {
                 Cursor.lockState = CursorLockMode.Locked;
                 Cursor.visible = false;
+                PauseMenu.GameIsPaused=false;
             }
         }
     }
