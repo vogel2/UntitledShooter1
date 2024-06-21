@@ -1,6 +1,26 @@
-First Person Shooter Game - Graduation Design Project - BUE 2024 - Computer Engineering
+   +-----------------+
+   |  +---+    +---+ |
+   |  |   |    |   | |
+   |  |   +----+   | |
+   |  |            | |
+   |  |  O         | |
+   |  |            | |
+   |  +----+  +----+ |
+   |       |  |      |
+   |   +---+  +---+  |
+   |   |         |   |
+   | +-+    X    +-+ |
+   | |            |  |
+   | |  +------+  |  |
+   | |  |      |  |  |
+   | |  |      |  |  |
+   +-+--+------+--+--+
 
-// Abdulrahman Almonzer
-// Ahmad Mokhtar
-// Anas Ahmad
-// Muhammed Ashraf
+Pew pew! (laser blaster)
+Bang! Bang! (gunshots)
+Ratatatat! (automatic weapon fire)
+Boom! (explosion)
+Whoosh! (projectile flying by)
+Crack! (sniper rifle shot)
+Zing! (ricochet)
+Fwoosh! (rocket launcher)
