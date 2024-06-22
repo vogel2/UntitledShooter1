@@ -41,6 +41,7 @@ public bool isdead=false;
      public GameObject attackPoint2;
     private float expectedEndSpecial;
     private bool inAttack=false;
+    private float expectedEndAttack=0;
 
         void Awake()
     {
@@ -126,15 +127,18 @@ public bool isdead=false;
         navAgent.isStopped=true;
         attackTimer += Time.deltaTime;
          
-        if(attackTimer>waitBeforeAttack){   
+            if(attackTimer>waitBeforeAttack){   
             bossAnim.Attack();
+            expectedEndAttack=Time.time+2.5f;
             attackTimer=0f;
-        }// play attack animation
- 
-        if(UnityEngine.Vector3.Distance(transform.position, target.position) > attackDistance +chaseAfterAttackDistance ){
+        }         
+
+        if(Time.time>expectedEndAttack){
+        if(UnityEngine.Vector3.Distance(transform.position, target.position) > attackDistance + chaseAfterAttackDistance ){
             bossAnim.resetAttack();
             bState=bossState.chase;
         } 
+    }
     }
     void SpecialStateChange(){
         

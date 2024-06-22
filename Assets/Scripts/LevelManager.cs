@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
         
 
 public class LevelManager : MonoBehaviour
@@ -13,14 +14,23 @@ public class LevelManager : MonoBehaviour
 
     private int enemiesKilled = 0;
     private int keysCollected = 0;
-    private float timeRemaining;
+        public float gameDuration = 10 * 60f; // Total game duration in seconds
+    private float remainingTime;
     private bool levelCompleted = false;
     private bool playerAlive = true;
+    private int SceneNum;
+    private bool BossDead;
+    public bool upgradeDone;
+    public bool upgradeDead;
+
 
     void Awake(){
             enemiesKilled = 0;
             keysCollected = 0;
          makeInstance();
+         BossDead=false;
+         upgradeDone = false;
+
     }
     void makeInstance(){
     if(instance == null) {instance = this;}
@@ -28,19 +38,40 @@ public class LevelManager : MonoBehaviour
 
     void Start()
     {
+       makeInstance();
+                   remainingTime = gameDuration;
     }
 
     void Update()
     {
         if (!levelCompleted && playerAlive)
         {
-            print("enemiesKilled:"+enemiesKilled+ " total enemies:"+totalEnemies );
+           SceneNum= SceneManager.GetActiveScene().buildIndex;
+           //print(SceneNum);
+            switch(SceneNum)
+            {case 1:
+              //  print("enemiesKilled:"+enemiesKilled+ " total enemies:"+totalEnemies );
            // print("KeysCollectet:"+keysCollected +" total keys: "+ totalKeys);
             // Check if all objectives are completed
             if ((enemiesKilled >= totalEnemies) && (keysCollected >= totalKeys))
             {
                // print("false positive happened");
                 CompleteLevel();
+            }
+            break;
+            case 2:
+            print("switch working"+SceneNum);
+                    if (upgradeDone==true){
+                        CompleteLevel();
+                    }
+                    if (upgradeDead==true){
+                        EndLevel(false);
+                    }
+            break;
+            case 3:
+                if (BossDead){CompleteLevel();}
+            break;
+
             }
         }
     }
@@ -57,9 +88,19 @@ public class LevelManager : MonoBehaviour
     
         
     }
+    public void upgradeDied(){
+        upgradeDead=true;
+    }
+    public void upgradeFinished(){
+        upgradeDone=true;
+    }
+    public void BossDied(){
+    BossDead=true;
+}
 
     public void PlayerDied()
     {
+        print("also invoked");
         playerAlive = false;
         EndLevel(false);
     }
@@ -73,9 +114,21 @@ public class LevelManager : MonoBehaviour
 
     private void EndLevel(bool success)
     {
+        print("made it to endLEvel");
         StopAllCoroutines();
         if (success)
-        {
+        {   
+           // int SceneNum= SceneManager.GetActiveScene().buildIndex;
+            switch(SceneNum)
+            {case 1:
+             UnityEngine.SceneManagement.SceneManager.LoadScene("Level2");
+             break;
+             case 2:
+               UnityEngine.SceneManagement.SceneManager.LoadScene("BossFight");
+             break;
+             case 3:
+               UnityEngine.SceneManagement.SceneManager.LoadScene("Main Menu");
+             break;}
             // Show success message and proceed to next level or main menu
             Debug.Log("Level Completed Successfully!");
             // Implement your success logic here
@@ -90,7 +143,7 @@ public class LevelManager : MonoBehaviour
         }
     }
     void RestartGame(){
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Level1");
+            SceneManager.LoadScene(SceneNum);          
     }
 
 }

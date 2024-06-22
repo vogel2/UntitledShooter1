@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class enemyHealth : MonoBehaviour
 {   public enum enemyType{
@@ -45,8 +46,8 @@ public class enemyHealth : MonoBehaviour
          
             return;}
         //print(health);
-       
-        if(enemController.entype==4){
+       if (SceneManager.GetActiveScene().buildIndex==1)
+        {if(enemController.entype==4){
             enemController.alert(1);
         }
         else if(enemController.entype==5){
@@ -55,7 +56,7 @@ public class enemyHealth : MonoBehaviour
         else if(enemController.entype==6){
             enemController.alert(3);
         }
-
+}
     }
     // Update is called once per frame
     void Update()

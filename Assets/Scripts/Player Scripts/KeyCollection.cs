@@ -22,6 +22,7 @@ public class KeyCollections : MonoBehaviour
         {
             other.gameObject.SetActive(false);
             uiManager.UpdateKeyUI(keyNumber);
+            LevelManager.instance.KeyCollected();
             
            
 

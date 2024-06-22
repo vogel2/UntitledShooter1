@@ -18,15 +18,9 @@ public class RingOfFire : MonoBehaviour
             if(colliders[0].transform.tag=="Player"){
 
                 print("hit detected " + colliders[0].gameObject.tag);//experemental to make sure things work correctly, returns the tag of the gameobject the attack point collided with
-                gameObject.SetActive(false);
+              //  gameObject.SetActive(false);
                 colliders[0].gameObject.GetComponent<PlayerHealth>().applyDamage(damage);
             }
-            else if(colliders[0].transform.tag=="Enemy")
-            { print("hit detected " + colliders[0].gameObject.tag);
-                colliders[0].gameObject.GetComponent<enemyHealth>().applyDamage(damage);
-                //experemental to make sure things work correctly, returns the tag of the gameobject the attack point collided with
-            }
-                 
            
         }
     }

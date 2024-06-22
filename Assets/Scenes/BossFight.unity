@@ -19655,13 +19655,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 1706989053}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78a21e8b65121d5438cc338149e08eee, type: 3}
+  m_Script: {fileID: 11500000, guid: 474eacbdc4dda2145824ef968fff9150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  totalEnemies: 20
   totalKeys: 3
-  timerText: {fileID: 0}
-  objectivesText: {fileID: 0}
-  levelTime: 300
+  gameDuration: 600
+  upgradeDone: 0
+  upgradeDead: 0
 --- !u!1 &1708302565
 GameObject:
   m_ObjectHideFlags: 0
@@ -25293,7 +25294,7 @@ MonoBehaviour:
   regenRate: 1
   currHealth: 100
   regenDelay: 5
-  HealthBar: {fileID: 0}
+  HealthBar: {fileID: 971010104}
 --- !u!114 &2028633135
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -27024,10 +27025,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: -779746908448176144, guid: dde466f8e541e2e4bb54fb1490686a2c, type: 3}
-      propertyPath: damage
-      value: 10
-      objectReference: {fileID: 0}
     - target: {fileID: 1389700754916633359, guid: dde466f8e541e2e4bb54fb1490686a2c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -27093,7 +27090,7 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents:
-    - {fileID: -779746908448176144, guid: dde466f8e541e2e4bb54fb1490686a2c, type: 3}
+    - {fileID: 0}
     m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 1292748252874904778, guid: dde466f8e541e2e4bb54fb1490686a2c, type: 3}
@@ -27175,7 +27172,7 @@ PrefabInstance:
       objectReference: {fileID: 433975048}
     - target: {fileID: 706901871992488923, guid: ac65a86020c0d4e42b711452e0e34e10, type: 3}
       propertyPath: attackDistance
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 706901871992488923, guid: ac65a86020c0d4e42b711452e0e34e10, type: 3}
       propertyPath: SpecialCooldown

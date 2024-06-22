@@ -46495,8 +46495,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 474eacbdc4dda2145824ef968fff9150, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  totalEnemies: 15
+  totalEnemies: 3
   totalKeys: 3
+  gameDuration: 600
+  upgradeDone: 0
+  upgradeDead: 0
 --- !u!1001 &970961685
 PrefabInstance:
   m_ObjectHideFlags: 0

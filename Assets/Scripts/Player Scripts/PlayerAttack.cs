@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 public class PlayerAttack : MonoBehaviour {
 
     // Reference to the WeaponManager component
@@ -110,7 +110,11 @@ public class PlayerAttack : MonoBehaviour {
         RaycastHit hit;
         if(Physics.Raycast(mainCam.transform.position,mainCam.transform.forward,out hit)){ 
             if(hit.transform.tag==Tags.ENEMY_TAG){
-                 hit.transform.GetComponent<enemyHealth>().applyDamage(damage);
+                if(SceneManager.GetActiveScene().buildIndex==1)
+                 {hit.transform.GetComponent<enemyHealth>().applyDamage(damage);}
+                 else if(SceneManager.GetActiveScene().buildIndex==2){
+                    hit.transform.GetComponent<EnemyHealth2>().applyDamage(damage);
+                 }
             //print("hit " + hit.transform.gameObject.tag);
             }
             else if(hit.transform.tag==Tags.BOSS_TAG){

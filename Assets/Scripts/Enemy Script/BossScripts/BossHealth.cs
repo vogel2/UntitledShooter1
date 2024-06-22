@@ -34,7 +34,7 @@ public class BossHealth : MonoBehaviour
             isDead=true;
             print("boss died");
          bossSci.bState=bossState.dead;
-         FinalLevelManager.instance.BossDied();
+         LevelManager.instance.BossDied();
         }}
     }
 }

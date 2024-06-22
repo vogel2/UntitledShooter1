@@ -1,9 +1,11 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.AI;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class PlayerHealth : MonoBehaviour
 {
@@ -15,6 +17,8 @@ public class PlayerHealth : MonoBehaviour
     private enemyAnimaitor enemyAnim;
     private NavMeshAgent navAgent;
     private enemyController enemController;
+    private enemCont2 enCont2;
+     private int SceneNum;
     // Start is called before the first frame update
     public Slider HealthBar;
     void Awake()
@@ -22,26 +26,39 @@ public class PlayerHealth : MonoBehaviour
          enemyAnim=GetComponent<enemyAnimaitor>();
         enemController=GetComponent<enemyController>();
         navAgent=GetComponent<NavMeshAgent>();
+        enCont2=GetComponent<enemCont2>();
     }
 
     public void applyDamage(float damage){
         currHealth-=damage;
-        HealthBar.value=currHealth;
+       
         CancelInvoke("Regen");
         print(currHealth);
     
         if(currHealth<=0f){
-        
-            GameObject[] enemies=  GameObject.FindGameObjectsWithTag("Enemy");
-
+           print("invoked");
+           GameObject[] enemies=  GameObject.FindGameObjectsWithTag("Enemy");
+           switch(SceneNum){
+            case 1:
             foreach(GameObject obj in enemies){
                 obj.GetComponent<enemyController>().enabled=false;
             }
             GetComponent<PlayerMovement>().enabled=false;
             GetComponent<PlayerAttack>().enabled=false;
             GetComponent<WeaponManager>().GetCurrentSelectedWeapon().gameObject.SetActive(false);
+            break;
+            case 2:
+            foreach(GameObject obj in enemies){
+                obj.GetComponent<enemCont2>().enabled=false;
+            }
+            GetComponent<PlayerMovement>().enabled=false;
+            GetComponent<PlayerAttack>().enabled=false;
+            GetComponent<WeaponManager>().GetCurrentSelectedWeapon().gameObject.SetActive(false);
+            break;
+           }
             LevelManager.instance.PlayerDied();
                 return;
+                
         }
         Invoke("Regen",regenDelay);
         
@@ -51,7 +68,7 @@ public class PlayerHealth : MonoBehaviour
 
     public void Regen(){
         
-        if ((currHealth < health))
+        if (currHealth < health)
         {
             currHealth += regenValue;
             print(currHealth);
@@ -63,5 +80,9 @@ public class PlayerHealth : MonoBehaviour
                  Invoke("Regen", regenRate);
             }
         }
+    }
+    void Update(){
+        SceneNum= SceneManager.GetActiveScene().buildIndex;
+         HealthBar.value=currHealth;
     }
 }
