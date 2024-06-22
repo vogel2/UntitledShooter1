@@ -20,7 +20,7 @@ public class enemyHealth : MonoBehaviour
     public enemyType enType;
     private Transform target;
     private bool alerted = false;
-
+    
     // Start is called before the first frame update
     void Awake()
     {
