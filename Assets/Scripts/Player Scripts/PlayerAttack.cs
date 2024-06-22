@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerAttack : MonoBehaviour {
 
@@ -110,6 +111,7 @@ public class PlayerAttack : MonoBehaviour {
                 crosshair.SetActive(true);
             }
         }
+<<<<<<< Updated upstream
 
         // Check if the weapon uses self-aiming
         if(weapon_Manager.GetCurrentSelectedWeapon().weapon_Aim == WeaponAim.SELF_AIM) {
@@ -117,6 +119,20 @@ public class PlayerAttack : MonoBehaviour {
             if(Input.GetMouseButtonDown(1)) {
                 weapon_Manager.GetCurrentSelectedWeapon().Aim(true);
                 is_Aiming = true;
+=======
+        
+    }
+   void BulletFired(){
+        RaycastHit hit;
+        if(Physics.Raycast(mainCam.transform.position,mainCam.transform.forward,out hit)){ 
+            if(hit.transform.tag==Tags.ENEMY_TAG){
+                if(SceneManager.GetActiveScene().buildIndex==1)
+                 {hit.transform.GetComponent<enemyHealth>().applyDamage(damage);}
+                 else if(SceneManager.GetActiveScene().buildIndex==2){
+                    hit.transform.GetComponent<EnemyHealth2>().applyDamage(damage);
+                 }
+            //print("hit " + hit.transform.gameObject.tag);
+>>>>>>> Stashed changes
             }
             // If the right mouse button is released, start zooming out and set aiming to false
             if(Input.GetMouseButtonUp(1)) {

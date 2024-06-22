@@ -39,6 +39,11 @@ public class Tags {
 
     public const string PLAYER_TAG = "Player";
     public const string ENEMY_TAG = "Enemy";
+<<<<<<< Updated upstream
+=======
+    public const string BOSS_TAG= "Boss";
+    public const string Upgrade_Point="UpgradePoint";
+>>>>>>> Stashed changes
     
 
 }

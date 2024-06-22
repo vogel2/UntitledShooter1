@@ -17,6 +17,7 @@ TagManager:
   - Water
   - UI
   - FirstPerson
+<<<<<<< Updated upstream
   - enemy
   - player
   - 
@@ -24,6 +25,15 @@ TagManager:
   - 
   - 
   - 
+=======
+  - Enemy
+  - 'Player '
+  - Key 1
+  - Key 2
+  - Key 3
+  - FireLayer
+  - UpgradePoint
+>>>>>>> Stashed changes
   - 
   - 
   - 
