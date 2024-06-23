@@ -4,19 +4,19 @@ using TMPro;
 
 public class UpgradePointController : MonoBehaviour
 {
-    [SerializeField] private TextMeshProUGUI timerText; // Make sure this is correctly assigned
+    public TMP_Text timerText; // Make sure this is correctly assigned
     public float maxHealth = 100f;
     public float currHealth = 100f;
     public Slider healthBar;
-    public float gameDuration = 10 * 60f; // Total game duration in seconds
+    public float gameDuration = 3*60f; // Total game duration in seconds
     private float remainingTime;
 
     void Start()
     {
+        remainingTime = gameDuration;
         currHealth = maxHealth;
         healthBar.maxValue = maxHealth;
         healthBar.value = currHealth;
-        remainingTime = gameDuration;
         UpdateTimerUI();
     }
 
@@ -43,7 +43,7 @@ public class UpgradePointController : MonoBehaviour
         healthBar.value = currHealth;
         if (currHealth <= 0)
         {
-            if (remainingTime <= 5 * 60f) // 5 minutes in seconds
+            if (remainingTime <= 0) // 5 minutes in seconds
             {
                 LoadMainBossScene();
             }

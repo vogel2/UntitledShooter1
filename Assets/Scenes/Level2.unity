@@ -26013,7 +26013,7 @@ MonoBehaviour:
   maxHealth: 100
   currHealth: 100
   healthBar: {fileID: 861546551}
-  gameDuration: 600
+  gameDuration: 300
 --- !u!1001 &550347832
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -48205,7 +48205,7 @@ Canvas:
   m_GameObject: {fileID: 1011129433}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
+  m_RenderMode: 1
   m_Camera: {fileID: 0}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
@@ -48254,8 +48254,8 @@ MonoBehaviour:
   timerText: {fileID: 1428167317}
   maxHealth: 100
   currHealth: 100
-  healthBar: {fileID: 0}
-  gameDuration: 600
+  healthBar: {fileID: 861546551}
+  gameDuration: 300
 --- !u!4 &1011153344 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6816924712164408238, guid: 628b35708d1b48849ae6ee2b707ee8f1, type: 3}
