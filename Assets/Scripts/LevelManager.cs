@@ -60,7 +60,7 @@ public class LevelManager : MonoBehaviour
             }
             break;
             case 2:
-            print("switch working"+SceneNum);
+
                     if (upgradeDone==true){
                         CompleteLevel();
                     }

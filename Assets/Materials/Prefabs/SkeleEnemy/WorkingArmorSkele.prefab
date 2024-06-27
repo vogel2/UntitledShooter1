@@ -543,9 +543,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enState: 0
   walkSpeed: 2
-  runSpeed: 4
+  runSpeed: 3
   chaseDistance: 15
-  attackDistance: 1.5
+  attackDistance: 2
   chaseAfterAttackDistance: 0.5
   patrolRadiusMin: 5
   patrotRadiusMax: 15
@@ -615,7 +615,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 54aaaf2f38b88884d9911e61d554dcdb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 20
+  health: 120
   enType: 0
 --- !u!1 &851237842426286182
 GameObject:
@@ -2058,7 +2058,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 912363c1c3ee92046a1dc2d11ec510d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
+  damage: 15
   radius: 1
   layerMask:
     serializedVersion: 2
@@ -3616,7 +3616,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 912363c1c3ee92046a1dc2d11ec510d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 2
+  damage: 15
   radius: 1
   layerMask:
     serializedVersion: 2

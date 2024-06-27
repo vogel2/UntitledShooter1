@@ -52,7 +52,7 @@ public class PlayerAttack : MonoBehaviour {
 
     // Start is called before the first frame update
     void Start() {
-        
+        nextTimeToFire=Time.time;
     }
 
     // Update is called once per frame
@@ -61,6 +61,7 @@ public class PlayerAttack : MonoBehaviour {
          {
             return;
          }
+       
         WeaponShoot();
         ZoomInAndOut();
     }
@@ -77,11 +78,16 @@ public class PlayerAttack : MonoBehaviour {
                     weapon_Manager.GetCurrentSelectedWeapon().ShootAnimation();
                 }
 
+                
                 // Handle single shot for bullet type weapons
                 if(weapon_Manager.GetCurrentSelectedWeapon().bulletType == WeaponBulletType.BULLET) {
+                   if(nextTimeToFire<Time.time)
+                    {
                     weapon_Manager.GetCurrentSelectedWeapon().ShootAnimation();
                     BulletFired();
-                } else { // Handle aiming specific shooting
+                    nextTimeToFire=Time.time+ fireRate;}
+                } 
+                else { // Handle aiming specific shooting
                     if(is_Aiming) {
                         weapon_Manager.GetCurrentSelectedWeapon().ShootAnimation();
                     }

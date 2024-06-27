@@ -5,7 +5,7 @@ using TMPro;
 public class UpgradePointController : MonoBehaviour
 {
     public TMP_Text timerText; // Make sure this is correctly assigned
-    public float maxHealth = 100f;
+    public float maxHealth = 300f;
     public float currHealth = 100f;
     public Slider healthBar;
     public float gameDuration = 3*60f; // Total game duration in seconds
@@ -23,6 +23,10 @@ public class UpgradePointController : MonoBehaviour
     void Update()
     {
         remainingTime -= Time.deltaTime;
+        if (remainingTime <= 0 &&currHealth>0) // 5 minutes in seconds
+            {
+               LevelManager.instance.upgradeFinished();
+            }
         if (remainingTime <= 0)
         {
             remainingTime = 0;
@@ -41,26 +45,11 @@ public class UpgradePointController : MonoBehaviour
     {
         currHealth -= amount;
         healthBar.value = currHealth;
-        if (currHealth <= 0)
-        {
-            if (remainingTime <= 0) // 5 minutes in seconds
-            {
-                LoadMainBossScene();
+        
+            if(currHealth<=0){
+                LevelManager.instance.upgradeDied();
             }
-            else
-            {
-                RestartLevel();
-            }
-        }
-    }
-
-    void RestartLevel()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("Level2");
-    }
-
-    void LoadMainBossScene()
-    {
-        UnityEngine.SceneManagement.SceneManager.LoadScene("MainBoss");
-    }
+         
+       
+}
 }

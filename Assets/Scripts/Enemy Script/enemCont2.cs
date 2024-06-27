@@ -7,7 +7,8 @@ using UnityEngine.AI;
 
 
 public class enemCont2 : MonoBehaviour
-{private LevelManager lel;
+{
+    //private LevelManager lel;
     private enemyAnimaitor enemy_anim;
     private NavMeshAgent navAgent;
     public enemyState enState;
@@ -34,11 +35,11 @@ public class enemCont2 : MonoBehaviour
         PlayerTarget = GameObject.FindWithTag(Tags.PLAYER_TAG);
         UpTarget=GameObject.FindWithTag(Tags.Upgrade_Point);
         GameObject copy= gameObject;
-        lel=GetComponent<LevelManager>();
+        //lel=GetComponent<LevelManager>();
         damageScript1=attackPoint.GetComponent<PlayerDamage>();
         damageScript2=attackPoint2.GetComponent<PlayerDamage>();
         GameObject upgradePointObj = GameObject.FindWithTag("UpgradePoint");
-         upgradePointController = upgradePointObj.GetComponent<UpgradePointController>();
+        upgradePointController = upgradePointObj.GetComponent<UpgradePointController>();
 
     }
     void Start(){
@@ -50,12 +51,7 @@ public class enemCont2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-           if(Vector3.Distance(transform.position,PlayerTarget.transform.position)<=chaseDistance){
-           target=PlayerTarget;
-        }
-        else{
-          target=UpTarget;
-        }
+         
 
         switch(enState){
             case enemyState.chase:
@@ -73,11 +69,14 @@ public class enemCont2 : MonoBehaviour
 
 
     void chase(){
-        
-             if(enState==enemyState.dead){
-            dead();
+          if(Vector3.Distance(transform.position,PlayerTarget.transform.position)<=chaseDistance){
+           target=PlayerTarget;
         }
-
+        else{
+          target=UpTarget;
+        }
+        if(enState==enemyState.dead){dead();}
+        navAgent.acceleration=8;
         navAgent.isStopped=false;
         navAgent.speed = runSpeed;
 
@@ -117,9 +116,10 @@ public class enemCont2 : MonoBehaviour
 
     }
     void attack(){
-       
+            
         navAgent.velocity= UnityEngine.Vector3.zero;
         navAgent.isStopped=true;
+        navAgent.acceleration = 0;
         attackTimer += Time.deltaTime;
         if(attackTimer>waitBeforeAttack){  
             if(target==PlayerTarget){
@@ -129,6 +129,7 @@ public class enemCont2 : MonoBehaviour
             attackTimer=0f;
             }  
             else{
+                print("executed");
                  upgradePointController.TakeDamage(damage);
                  damageScript1.layerMask=0;
                  damageScript2.layerMask=0;
@@ -139,7 +140,7 @@ public class enemCont2 : MonoBehaviour
             
         }// play attack animation
 
-        if(Vector3.Distance(transform.position, target.transform.position) > attackDistance +chaseAfterAttackDistance ){
+        if(Vector3.Distance(transform.position, target.transform.position) > attackDistance + chaseAfterAttackDistance ){
             enState=enemyState.chase;
         } //is the player running away?
          //enState=enemyState.alert;
@@ -172,6 +173,10 @@ public class enemCont2 : MonoBehaviour
         get;set;
     }
     public void dead(){
+        navAgent.acceleration=0f;
+        navAgent.velocity=Vector3.zero;
+        navAgent.isStopped=true;
+       // navAgent.enabled=false;
         enemy_anim.Dead(true);
    
     }

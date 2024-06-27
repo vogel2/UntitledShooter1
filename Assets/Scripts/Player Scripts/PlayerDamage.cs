@@ -3,15 +3,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class PlayerDamage : MonoBehaviour
 {
    public float damage=2f;
    public float radius=1f;
+    private int SceneNum;
    public LayerMask layerMask;//change or assign what layer this object interacts with
 
     // most likely won't be used as it's for melee
-
+    void Start(){
+          SceneNum= SceneManager.GetActiveScene().buildIndex;
+    }
     void Update()
     {
         Collider[] colliders = Physics.OverlapSphere(transform.position,radius,layerMask);//check using the physics class if the sphere of radius = "radius" has
@@ -25,7 +30,12 @@ public class PlayerDamage : MonoBehaviour
             }
             else if(colliders[0].transform.tag=="Enemy")
             { print("hit detected " + colliders[0].gameObject.tag);
-                colliders[0].gameObject.GetComponent<enemyHealth>().applyDamage(damage);
+            if(SceneNum==1)
+               { colliders[0].gameObject.GetComponent<enemyHealth>().applyDamage(damage);}
+               else
+               {
+                colliders[0].gameObject.GetComponent<EnemyHealth2>().applyDamage(damage);
+               }
                 //experemental to make sure things work correctly, returns the tag of the gameobject the attack point collided with
             gameObject.SetActive(false);}//this turn of the hit detection so only one instance is registered. this is activated again during the relevent frame of the attack animation 
                  

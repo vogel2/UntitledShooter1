@@ -44,7 +44,7 @@ public class enemyController : MonoBehaviour
         enemy_anim=GetComponent<enemyAnimaitor>();
         navAgent=GetComponent<NavMeshAgent>();
         target = GameObject.FindWithTag(Tags.PLAYER_TAG).transform;
-        GameObject copy= gameObject;
+      //  GameObject copy= gameObject;
         lel=GetComponent<LevelManager>();
 
     }
@@ -83,6 +83,7 @@ public class enemyController : MonoBehaviour
         }
         navAgent.isStopped=false;//enemy is patrolling allow movement
         navAgent.speed=walkSpeed;// the movement speed is equal to the walkspeed
+        navAgent.acceleration=4;
         patrolTimer += Time.deltaTime;// add time to the patrol timer
         
         if(patrolTimer > patrolDuration){
@@ -205,6 +206,10 @@ public class enemyController : MonoBehaviour
         get;set;
     }
     void dead(){
+          navAgent.acceleration=0f;
+        navAgent.velocity=UnityEngine.Vector3.zero;
+        navAgent.isStopped=true;
+
         enemy_anim.Dead(true);
    
     }

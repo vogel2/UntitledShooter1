@@ -20,7 +20,7 @@ public class EnemyHealth2 : MonoBehaviour
         health-=damage;
         if(health<=0f&& isDead==false){
         isDead=true;
-        enCon2.dead();
+        enCon2.enState=enemyState.dead;
         }}
 
     // Update is called once per frame

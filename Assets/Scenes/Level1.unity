@@ -4842,7 +4842,6 @@ MonoBehaviour:
   health: 100
   regenValue: 10
   regenRate: 1
-  currHealth: 100
   regenDelay: 5
   HealthBar: {fileID: 89446285}
 --- !u!114 &89446285
@@ -9515,12 +9514,12 @@ MonoBehaviour:
   armouredEnemy1Loc: {fileID: 487451865}
   armouredEnemy2Loc: {fileID: 1595270092}
   armouredEnemy3Loc: {fileID: 1648178643}
-  enInt1: 3
-  enInt2: 0
-  enInt3: 0
-  enInt4: 0
-  enInt5: 0
-  enInt6: 0
+  enInt1: 4
+  enInt2: 4
+  enInt3: 4
+  enInt4: 1
+  enInt5: 1
+  enInt6: 1
   waitTime: 200000
 --- !u!4 &182526549
 Transform:
@@ -48053,7 +48052,7 @@ GameObject:
   - component: {fileID: 1007114129}
   m_Layer: 5
   m_Name: Crosshair
-  m_TagString: Untagged
+  m_TagString: Crosshair
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -72307,7 +72306,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 075457c71dc172d48b3b5bd067b80fe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  fireRate: 15
+  fireRate: 0.3
   damage: 20
 --- !u!114 &1645967109
 MonoBehaviour:
@@ -72344,7 +72343,6 @@ MonoBehaviour:
   health: 100
   regenValue: 10
   regenRate: 1
-  currHealth: 100
   regenDelay: 5
   HealthBar: {fileID: 89446285}
 --- !u!114 &1645967121
@@ -92426,6 +92424,10 @@ PrefabInstance:
       propertyPath: m_TagString
       value: FP Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 1436903887375641036, guid: 850fd5e227b5f40e98b2a2dc5f6feb09, type: 3}
+      propertyPath: sprint_Speed
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 1906896122050553879, guid: 850fd5e227b5f40e98b2a2dc5f6feb09, type: 3}
       propertyPath: m_IsActive
       value: 0
@@ -92525,6 +92527,10 @@ PrefabInstance:
     - target: {fileID: 7291821581455517058, guid: 850fd5e227b5f40e98b2a2dc5f6feb09, type: 3}
       propertyPath: m_SlopeLimit
       value: 90
+      objectReference: {fileID: 0}
+    - target: {fileID: 7387740646529818706, guid: 850fd5e227b5f40e98b2a2dc5f6feb09, type: 3}
+      propertyPath: jumpForce
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 7873654946311840256, guid: 850fd5e227b5f40e98b2a2dc5f6feb09, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
